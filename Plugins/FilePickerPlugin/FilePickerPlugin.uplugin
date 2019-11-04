@@ -1,0 +1,28 @@
+{
+	"FileVersion": 3,
+	"Version": 1,
+	"VersionName": "1.0",
+	"FriendlyName": "FilePickerPlugin",
+	"Description": "",
+	"Category": "Other",
+	"CreatedBy": "Naotsun",
+	"CreatedByURL": "",
+	"DocsURL": "",
+	"MarketplaceURL": "",
+	"SupportURL": "",
+	"CanContainContent": true,
+	"IsBetaVersion": false,
+	"Installed": false,
+  "Modules": [
+    {
+      "Name": "FilePickerPlugin",
+      "Type": "Runtime",
+      "LoadingPhase": "Default"
+    },
+    {
+      "Name": "FilePickerPluginEd",
+      "Type": "Developer",
+      "LoadingPhase": "PreDefault"
+    }
+  ]
+}
