@@ -46,6 +46,14 @@ public:
 			bool IsMultiple = false
 		);
 
+	UFUNCTION(BlueprintCallable, Category = "FilePickerPlugin | OpenDirectoryDialog", meta = (ExpandEnumAsExecs = "OutputPin"))
+		static void OpenDirectoryDialog(
+			EDialogResult& OutputPin, 
+			FString& FolderPath,
+			const FString& DialogTitle = TEXT("Open Directory Dialog"),
+			const FString& DefaultPath = TEXT("")
+		);
+
 protected:
 	//ウィンドウハンドルを取得する
 	static void* GetWindowHandle();

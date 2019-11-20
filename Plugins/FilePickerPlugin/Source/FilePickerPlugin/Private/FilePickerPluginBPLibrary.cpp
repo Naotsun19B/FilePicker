@@ -52,14 +52,54 @@ void UFilePickerPluginBPLibrary::OpenFileDialog(
 					UE_LOG(FilePickerPlugin, Log, TEXT("Acquired file path : %s"), *fp);
 				}
 
-				UE_LOG(FilePickerPlugin, Log, TEXT("Open PDF Dialog : Successful"));
+				UE_LOG(FilePickerPlugin, Log, TEXT("Open File Dialog : Successful"));
 				OutputPin = EDialogResult::Successful;
 				return;
 			}
 		}
 	}
 
-	UE_LOG(FilePickerPlugin, Log, TEXT("Open PDF Dialog : Cancelled"));
+	UE_LOG(FilePickerPlugin, Log, TEXT("Open File Dialog : Cancelled"));
+	OutputPin = EDialogResult::Cancelled;
+}
+
+void UFilePickerPluginBPLibrary::OpenDirectoryDialog(
+	EDialogResult& OutputPin,
+	FString& FolderPath,
+	const FString& DialogTitle,
+	const FString& DefaultPath
+)
+{
+	//ウィンドウハンドルを取得
+	void* windowHandle = UFilePickerPluginBPLibrary::GetWindowHandle();
+
+	if (windowHandle)
+	{
+		IDesktopPlatform* desktopPlatform = FDesktopPlatformModule::Get();
+		if (desktopPlatform)
+		{
+			//ダイアログを開く
+			bool result = desktopPlatform->OpenDirectoryDialog(
+				windowHandle,
+				DialogTitle,
+				DefaultPath,
+				FolderPath
+			);
+
+			if (result)
+			{
+				//相対パスを絶対パスに変換
+				FolderPath = FPaths::ConvertRelativePathToFull(FolderPath);
+				UE_LOG(FilePickerPlugin, Log, TEXT("Acquired folder path : %s"), *FolderPath);
+
+				UE_LOG(FilePickerPlugin, Log, TEXT("Open Directory Dialog : Successful"));
+				OutputPin = EDialogResult::Successful;
+				return;
+			}
+		}
+	}
+
+	UE_LOG(FilePickerPlugin, Log, TEXT("Open Directory Dialog : Cancelled"));
 	OutputPin = EDialogResult::Cancelled;
 }
 
